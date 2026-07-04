@@ -82,7 +82,11 @@ fi
 
 ./busybox mount --bind tmp/${OLD_INIT##*/} ${OLD_INIT}
 
-telinit u
+if command -v systemctl >/dev/null; then
+    systemctl daemon-reexec
+else
+    telinit u
+fi
 
 ./busybox sleep 10
 
